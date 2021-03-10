@@ -69,6 +69,11 @@
 
 #include "freertos_risc_v_chip_specific_extensions.h"
 
+/* FETT Project-specific defines - in particular BIN_SOURCE_LMCO */
+#ifdef FETT_APPS
+#include "fettUserConfig.h"
+#endif
+
 /* Check the freertos_risc_v_chip_specific_extensions.h and/or command line
 definitions. */
 #if defined( portasmHAS_CLINT ) && defined( portasmHAS_MTIME )
@@ -113,6 +118,9 @@ at the top of this file. */
 .extern uxTimerIncrementsForOneTick /* size_t type so 32-bit on 32-bit core and 64-bits on 64-bit core. */
 .extern xISRStackTop
 .extern portasmHANDLE_INTERRUPT
+#ifdef BIN_SOURCE_LMCO
+.extern exception_handler
+#endif /* BIN_SOURCE_LMCO */
 
 /*-----------------------------------------------------------*/
 
@@ -239,6 +247,9 @@ is_exception:
 	csrr t0, mcause						/* For viewing in the debugger only. */
 	csrr t1, mepc						/* For viewing in the debugger only */
 	csrr t2, mstatus
+#ifdef BIN_SOURCE_LMCO
+	jal exception_handler
+#endif /* BIN_SOURCE_LMCO */
 	j is_exception						/* No other exceptions handled yet. */
 
 as_yet_unhandled:
