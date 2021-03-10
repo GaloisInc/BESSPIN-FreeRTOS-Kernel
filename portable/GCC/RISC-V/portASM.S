@@ -444,5 +444,10 @@ chip_specific_stack_frame:				/* First add any chip specific registers to the st
 1:
 	addi a0, a0, -portWORD_SIZE
 	store_x a1, 0(a0)					/* mret value (pxCode parameter) onto the stack. */
+#if defined(ENABLE_MORPHEUS)
+	jalrcp x0, 0(ra)
+#else
 	ret
+#endif
+
 /*-----------------------------------------------------------*/
