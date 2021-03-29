@@ -69,9 +69,9 @@
 
 #include "freertos_risc_v_chip_specific_extensions.h"
 
-/* FETT Project-specific defines - in particular BIN_SOURCE_LMCO */
-#ifdef FETT_APPS
-#include "fettUserConfig.h"
+/* BESSPIN Project-specific defines - in particular BIN_SOURCE_LMCO */
+#ifdef BESSPIN_TOOL_SUITE
+#include "besspinUserConfig.h"
 #endif
 
 /* Check the freertos_risc_v_chip_specific_extensions.h and/or command line
